@@ -16,7 +16,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-  "deploy": "webdatamanagement -d build",
+  "deploy": "master -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
