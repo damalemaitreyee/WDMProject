@@ -163,7 +163,7 @@ a{
     border: 1px solid #ffffff;
     text-align: left;
     padding: 8px;
-    font-size: 32px;
+    font-size: 13.33px;
   }
   
   th {
@@ -184,7 +184,7 @@ a{
     justify-content: space-evenly;
   }
   
-  form * {
+  form {
     font-size: 28px;
   }
   
