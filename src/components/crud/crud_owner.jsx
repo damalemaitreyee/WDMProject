@@ -1,158 +1,222 @@
-import React from "react";
+
+import "./crud_building.css";
+import React, { useState, Fragment } from "react";
+import { nanoid } from "nanoid";
+//import data from "./mock-data.json";
+import ReadOnlyRow from "./ReadOnlyRowOwner";
+import EditableRow from "./EditableRowOwner";
+const data = [
+  {
+    "id": 1,
+    "fullName": "Jenny Chan",
+    "address": "3 waterfoot road",
+    "phoneNumber": "333-962-7516",
+    "email": "jenny.chan@email.com"
+  },
+  {
+    "id": 2,
+    "fullName": "Jessica warren",
+    "address": "4 tall town",
+    "phoneNumber": "011-211-7516",
+    "email": "jessica.warren@email.com"
+  },
+  {
+    "id": 3,
+    "fullName": "Tony Frank",
+    "address": "11 lesly road",
+    "phoneNumber": "788-962-7516",
+    "email": "tony.frank@email.com"
+  },
+  {
+    "id": 4,
+    "fullName": "Jeremy Clark",
+    "address": "333 miltown manor",
+    "phoneNumber": "011-962-111",
+    "email": "jeremy.clark@email.com"
+  },
+  {
+    "id": 5,
+    "fullName": "Raymond Edwards",
+    "address": "99 blue acres",
+    "phoneNumber": "3231-962-7516",
+    "email": "raymon.edwards@email.com"
+  }
+]
+
 
 export default function CrudOwner() {
-  var selectedRow = null;
+  const [contacts, setContacts] = useState(data);
+  const [addFormData, setAddFormData] = useState({
+    fullName: "",
+    address: "",
+    phoneNumber: "",
+    email: "",
+  });
 
-  function onFormSubmit() {
-    if (validate()) {
-      var formData = readFormData();
-      if (selectedRow == null) insertNewRecord(formData);
-      else updateRecord(formData);
-      resetForm();
-    }
-  }
+  const [editFormData, setEditFormData] = useState({
+    fullName: "",
+    address: "",
+    phoneNumber: "",
+    email: "",
+  });
 
-  function readFormData() {
-    var formData = {};
+  const [editContactId, setEditContactId] = useState(null);
 
-    formData["aNum"] = document.getElementById("aNum").value;
-    formData["oName"] = document.getElementById("oName").value;
+  const handleAddFormChange = (event) => {
+    event.preventDefault();
 
-    return formData;
-  }
+    const fieldName = event.target.getAttribute("name");
+    const fieldValue = event.target.value;
 
-  function insertNewRecord(data) {
-    var table = document
-      .getElementById("aptList")
-      .getElementsByTagName("tbody")[0];
-    var newRow = table.insertRow(table.length);
-    var cell1 = newRow.insertCell(0);
-    cell1.innerHTML = data.aNum;
-    var cell2 = newRow.insertCell(1);
-    cell2.innerHTML = data.oName;
+    const newFormData = { ...addFormData };
+    newFormData[fieldName] = fieldValue;
 
-    var cell3 = newRow.insertCell(2);
-    cell3.innerHTML = `<a onClick="onEdit(this)">Edit</a>
-                       <a onClick="onDelete(this)">Delete</a>`;
-  }
+    setAddFormData(newFormData);
+  };
 
-  function resetForm() {
-    document.getElementById("aNum").value = "";
-    document.getElementById("oName").value = "";
+  const handleEditFormChange = (event) => {
+    event.preventDefault();
 
-    selectedRow = null;
-  }
+    const fieldName = event.target.getAttribute("name");
+    const fieldValue = event.target.value;
 
-  function onEdit(td) {
-    selectedRow = td.parentElement.parentElement;
-    document.getElementById("aNum").value = selectedRow.cells[0].innerHTML;
-    document.getElementById("oName").value = selectedRow.cells[1].innerHTML;
-  }
-  function updateRecord(formData) {
-    selectedRow.cells[0].innerHTML = formData.aNum;
-    selectedRow.cells[1].innerHTML = formData.oName;
-  }
+    const newFormData = { ...editFormData };
+    newFormData[fieldName] = fieldValue;
 
-  function onDelete(td) {
-    var result = window.confirm("Want to delete?");
-    if (result) {
-      var row = td.parentElement.parentElement;
-      document.getElementById("aptList").deleteRow(row.rowIndex);
-      resetForm();
-    }
-  }
-  function validate() {
-    var isValid = true;
-    if (document.getElementById("aNum").value == "") {
-      isValid = false;
-      document.getElementById("aNumValidationError").classList.remove("hide");
-    } else {
-      isValid = true;
-      if (
-        !document
-          .getElementById("aNumValidationError")
-          .classList.contains("hide")
-      )
-        document.getElementById("aNumValidationError").classList.add("hide");
-    }
+    setEditFormData(newFormData);
+  };
 
-    return isValid;
-  }
+  const handleAddFormSubmit = (event) => {
+    event.preventDefault();
+
+    const newContact = {
+      id: nanoid(),
+      fullName: addFormData.fullName,
+      address: addFormData.address,
+      phoneNumber: addFormData.phoneNumber,
+      email: addFormData.email,
+    };
+
+    const newContacts = [...contacts, newContact];
+    setContacts(newContacts);
+  };
+
+  const handleEditFormSubmit = (event) => {
+    event.preventDefault();
+
+    const editedContact = {
+      id: editContactId,
+      fullName: editFormData.fullName,
+      address: editFormData.address,
+      phoneNumber: editFormData.phoneNumber,
+      email: editFormData.email,
+    };
+
+    const newContacts = [...contacts];
+
+    const index = contacts.findIndex((contact) => contact.id === editContactId);
+
+    newContacts[index] = editedContact;
+
+    setContacts(newContacts);
+    setEditContactId(null);
+  };
+
+  const handleEditClick = (event, contact) => {
+    event.preventDefault();
+    setEditContactId(contact.id);
+
+    const formValues = {
+      fullName: contact.fullName,
+      address: contact.address,
+      phoneNumber: contact.phoneNumber,
+      email: contact.email,
+    };
+
+    setEditFormData(formValues);
+  };
+
+  const handleCancelClick = () => {
+    setEditContactId(null);
+  };
+
+  const handleDeleteClick = (contactId) => {
+    const newContacts = [...contacts];
+
+    const index = contacts.findIndex((contact) => contact.id === contactId);
+
+    newContacts.splice(index, 1);
+
+    setContacts(newContacts);
+  };
+
   return (
-    <body className="crud_owner_body">
-      <div className="crud_owner">
-        <h1 className="title">Hello!</h1>
-        <h3 className="title1">Register a Lunamar Building</h3>
-        <div className="container">
-          <table>
+    <div className="app-container">
+      <form onSubmit={handleEditFormSubmit}>
+        <table>
+          <thead>
             <tr>
-              <td>
-                <form
-                  onsubmit="event.preventDefault();onFormSubmit();"
-                  autocomplete="off"
-                >
-                  <div>
-                    <label>Apartment #</label>
-                    <label
-                      className="validation-error hide"
-                      id="aNumValidationError"
-                    >
-                      This field is required.
-                    </label>
-                    <input type="number" name="aNum" id="aNum" />
-                  </div>
-                  <div>
-                    <label>Owner Name</label>
-                    <input type="text" name="oName" id="oName" />
-                  </div>
-
-                  <div className="form-action-buttons">
-                    <input type="submit" value="Submit" />
-                    <input type="reset" value="Reset" />
-                  </div>
-                </form>
-                <td>
-                  <table className="list" id="aptList">
-                    <thead>
-                      <tr>
-                        <th>Apartment #</th>
-                        <th>Owner Name</th>
-                        <th>Edit/Delete</th>
-                      </tr>
-                      <tr>
-                        <td>01</td>
-                        <td>Owner 01</td>
-                        <td>
-                          <a onClick="onEdit(this)">Edit</a>
-                          <a onClick="onDelete(this)">Delete</a>{" "}
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td>02</td>
-                        <td>Owner 02</td>
-                        <td>
-                          <a onClick="onEdit(this)">Edit</a>
-                          <a onClick="onDelete(this)">Delete</a>{" "}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>03</td>
-                        <td>Owner 03</td>
-                        <td>
-                          <a onClick="onEdit(this)">Edit</a>
-                          <a onClick="onDelete(this)">Delete</a>{" "}
-                        </td>
-                      </tr>
-                    </thead>
-                    <tbody></tbody>
-                  </table>
-                </td>
-              </td>
+              <th>Name</th>
+              <th>Address</th>
+              <th>Phone Number</th>
+              <th>Email</th>
+              <th>Actions</th>
             </tr>
-          </table>
-        </div>
-      </div>
-    </body>
+          </thead>
+          <tbody>
+            {contacts.map((contact) => (
+              <Fragment>
+                {editContactId === contact.id ? (
+                  <EditableRow
+                    editFormData={editFormData}
+                    handleEditFormChange={handleEditFormChange}
+                    handleCancelClick={handleCancelClick}
+                  />
+                ) : (
+                  <ReadOnlyRow
+                    contact={contact}
+                    handleEditClick={handleEditClick}
+                    handleDeleteClick={handleDeleteClick}
+                  />
+                )}
+              </Fragment>
+            ))}
+          </tbody>
+        </table>
+      </form>
+
+      <h2>Add a Contact</h2>
+      <form onSubmit={handleAddFormSubmit}>
+        <input
+          type="text"
+          name="fullName"
+          required="required"
+          placeholder="Enter a name..."
+          onChange={handleAddFormChange}
+        />
+        <input
+          type="text"
+          name="address"
+          required="required"
+          placeholder="Enter an addres..."
+          onChange={handleAddFormChange}
+        />
+        <input
+          type="text"
+          name="phoneNumber"
+          required="required"
+          placeholder="Enter a phone number..."
+          onChange={handleAddFormChange}
+        />
+        <input
+          type="email"
+          name="email"
+          required="required"
+          placeholder="Enter an email..."
+          onChange={handleAddFormChange}
+        />
+        <button type="submit">Add</button>
+      </form>
+    </div>
   );
-}
+};

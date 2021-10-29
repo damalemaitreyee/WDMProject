@@ -1,300 +1,222 @@
-import React from "react";
-import "./crud.css"
-import Tasks from './Tasks';
-import AddTask from './AddTask';
-import Header from './Header';
-import './crud.css'
-// Importing React Hooks
-import { useState, useEffect } from 'react';
-// Importing Packages
-import { v4 as uuidv4 } from 'uuid';
-import Swal from "sweetalert2";
+
+import "./crud_building.css";
+import React, { useState, Fragment } from "react";
+import { nanoid } from "nanoid";
+//import data from "./mock-data.json";
+import ReadOnlyRow from "./ReadOnlyRowBuilding";
+import EditableRow from "./EditableRowBuilding";
+const data = [
+  {
+    "id": 1,
+    "fullName": "Jenny Chan",
+    "address": "3 waterfoot road",
+    "phoneNumber": "333-962-7516",
+    "email": "jenny.chan@email.com"
+  },
+  {
+    "id": 2,
+    "fullName": "Jessica warren",
+    "address": "4 tall town",
+    "phoneNumber": "011-211-7516",
+    "email": "jessica.warren@email.com"
+  },
+  {
+    "id": 3,
+    "fullName": "Tony Frank",
+    "address": "11 lesly road",
+    "phoneNumber": "788-962-7516",
+    "email": "tony.frank@email.com"
+  },
+  {
+    "id": 4,
+    "fullName": "Jeremy Clark",
+    "address": "333 miltown manor",
+    "phoneNumber": "011-962-111",
+    "email": "jeremy.clark@email.com"
+  },
+  {
+    "id": 5,
+    "fullName": "Raymond Edwards",
+    "address": "99 blue acres",
+    "phoneNumber": "3231-962-7516",
+    "email": "raymon.edwards@email.com"
+  }
+]
 
 
 export default function CrudBuilding() {
-   // All States
-   const [loading, setloading] = useState(true); // Pre-loader before page renders
-   const [tasks, setTasks] = useState([]); // Task State
-   const [showAddTask, setShowAddTask] = useState(false); // To reveal add task form
+  const [contacts, setContacts] = useState(data);
+  const [addFormData, setAddFormData] = useState({
+    fullName: "",
+    address: "",
+    phoneNumber: "",
+    email: "",
+  });
 
-   // Pre-loader
-   useEffect(() => {
-       setTimeout(() => {
-           setloading(false);
-       }, 3500);
-   }, [])
+  const [editFormData, setEditFormData] = useState({
+    fullName: "",
+    address: "",
+    phoneNumber: "",
+    email: "",
+  });
 
-   // Fetching from Local Storage
-   const getTasks = JSON.parse(localStorage.getItem("taskAdded"));
+  const [editContactId, setEditContactId] = useState(null);
 
-   useEffect(() => {
-       if (getTasks == null) {
-           setTasks([])
-       } else {
-           setTasks(getTasks);
-       }
-       // eslint-disable-next-line
-   }, [])
+  const handleAddFormChange = (event) => {
+    event.preventDefault();
 
-   // Add Task
-   const addTask = (task) => {
-       const id = uuidv4();
-       const newTask = { id, ...task }
+    const fieldName = event.target.getAttribute("name");
+    const fieldValue = event.target.value;
 
-       setTasks([...tasks, newTask]);
+    const newFormData = { ...addFormData };
+    newFormData[fieldName] = fieldValue;
 
-       Swal.fire({
-           icon: 'success',
-           title: 'Yay...',
-           text: 'You have successfully added a new task!'
-       })
+    setAddFormData(newFormData);
+  };
 
-       localStorage.setItem("taskAdded", JSON.stringify([...tasks, newTask]));
-   }
+  const handleEditFormChange = (event) => {
+    event.preventDefault();
 
-   // Delete Task
-   const deleteTask = (id) => {
-       const deleteTask = tasks.filter((task) => task.id !== id);
+    const fieldName = event.target.getAttribute("name");
+    const fieldValue = event.target.value;
 
-       setTasks(deleteTask);
+    const newFormData = { ...editFormData };
+    newFormData[fieldName] = fieldValue;
 
-       Swal.fire({
-           icon: 'success',
-           title: 'Oops...',
-           text: 'You have successfully deleted a task!'
-       })
+    setEditFormData(newFormData);
+  };
 
-       localStorage.setItem("taskAdded", JSON.stringify(deleteTask));
-   }
+  const handleAddFormSubmit = (event) => {
+    event.preventDefault();
 
-   // Edit Task
-   const editTask = (id) => {
+    const newContact = {
+      id: nanoid(),
+      fullName: addFormData.fullName,
+      address: addFormData.address,
+      phoneNumber: addFormData.phoneNumber,
+      email: addFormData.email,
+    };
 
-       const text = prompt("Task Name");
-       const day = prompt("Day and Time");
-       let data = JSON.parse(localStorage.getItem('taskAdded'));
+    const newContacts = [...contacts, newContact];
+    setContacts(newContacts);
+  };
 
-       const myData = data.map(x => {
-           if (x.id === id) {
-               return {
-                   ...x,
-                   text: text,
-                   day: day,
-                   id: uuidv4()
-               }
-           }
-           return x;
-       })
+  const handleEditFormSubmit = (event) => {
+    event.preventDefault();
 
-       Swal.fire({
-           icon: 'success',
-           title: 'Yay...',
-           text: 'You have successfully edited an existing task!'
-       })
+    const editedContact = {
+      id: editContactId,
+      fullName: editFormData.fullName,
+      address: editFormData.address,
+      phoneNumber: editFormData.phoneNumber,
+      email: editFormData.email,
+    };
 
-       localStorage.setItem("taskAdded", JSON.stringify(myData));
-       window.location.reload();
-   }
+    const newContacts = [...contacts];
+
+    const index = contacts.findIndex((contact) => contact.id === editContactId);
+
+    newContacts[index] = editedContact;
+
+    setContacts(newContacts);
+    setEditContactId(null);
+  };
+
+  const handleEditClick = (event, contact) => {
+    event.preventDefault();
+    setEditContactId(contact.id);
+
+    const formValues = {
+      fullName: contact.fullName,
+      address: contact.address,
+      phoneNumber: contact.phoneNumber,
+      email: contact.email,
+    };
+
+    setEditFormData(formValues);
+  };
+
+  const handleCancelClick = () => {
+    setEditContactId(null);
+  };
+
+  const handleDeleteClick = (contactId) => {
+    const newContacts = [...contacts];
+
+    const index = contacts.findIndex((contact) => contact.id === contactId);
+
+    newContacts.splice(index, 1);
+
+    setContacts(newContacts);
+  };
 
   return (
-    <div className="buildings">
-      
-                {/* loading
-                    ?
-                    <div className="spinnerContainer">
-                        <div className="spinner-grow text-primary" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                        </div>
-                        <div className="spinner-grow text-secondary" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                        </div>
-                        <div className="spinner-grow text-success" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                        </div>
-                        <div className="spinner-grow text-danger" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                        </div>
-                        <div className="spinner-grow text-warning" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                        </div>
-                    </div>
-                    : */}
-                    <div className="container">
-                        {/* App Header that has open and App Name */}
-                        <Header showForm={() => setShowAddTask(!showAddTask)} changeTextAndColor={showAddTask} />
+    <div className="app-container">
+      <form onSubmit={handleEditFormSubmit}>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Address</th>
+              <th>Phone Number</th>
+              <th>Email</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {contacts.map((contact) => (
+              <Fragment>
+                {editContactId === contact.id ? (
+                  <EditableRow
+                    editFormData={editFormData}
+                    handleEditFormChange={handleEditFormChange}
+                    handleCancelClick={handleCancelClick}
+                  />
+                ) : (
+                  <ReadOnlyRow
+                    contact={contact}
+                    handleEditClick={handleEditClick}
+                    handleDeleteClick={handleDeleteClick}
+                  />
+                )}
+              </Fragment>
+            ))}
+          </tbody>
+        </table>
+      </form>
 
-                        {/* Revealing of Add Task Form */}
-                        {showAddTask && <AddTask onSave={addTask} />}
-
-                        {/* Task Counter */}
-                        <h3>Number of Tasks: {tasks.length}</h3>
-
-                        {/* Displaying of Tasks */}
-                        {
-                            tasks.length > 0
-                                ?
-                                (<Tasks tasks={tasks} onDelete={deleteTask} onEdit={editTask} />)
-                                :
-                                ('No Building Found!')
-                        }
-                    </div>
-            
+      <h2>Add a Contact</h2>
+      <form onSubmit={handleAddFormSubmit}>
+        <input
+          type="text"
+          name="fullName"
+          required="required"
+          placeholder="Enter a name..."
+          onChange={handleAddFormChange}
+        />
+        <input
+          type="text"
+          name="address"
+          required="required"
+          placeholder="Enter an addres..."
+          onChange={handleAddFormChange}
+        />
+        <input
+          type="text"
+          name="phoneNumber"
+          required="required"
+          placeholder="Enter a phone number..."
+          onChange={handleAddFormChange}
+        />
+        <input
+          type="email"
+          name="email"
+          required="required"
+          placeholder="Enter an email..."
+          onChange={handleAddFormChange}
+        />
+        <button type="submit">Add</button>
+      </form>
     </div>
-  )
-}
-
-
-// export default function CrudBuilding() {
-//   var selectedRow = null
-
-// function onFormSubmit(e) {
-//   //e.preventDefault();
-
-//     if (validate()) {
-//         var formData = readFormData();
-//         if (selectedRow == null)
-//             insertNewRecord(formData);
-//         else
-//             updateRecord(formData);
-//         resetForm();
-//     }
-// }
-
-// function readFormData() {
-//     var formData = {};
-//     formData["bNum"] = document.getElementById("bNum").value;
-//     formData["bName"] = document.getElementById("bName").value;
-   
-//     return formData;
-// }
-
-// function insertNewRecord(data) {
-//     var table = document.getElementById("buildingList").getElementsByTagName('tbody')[0];
-//     var newRow = table.insertRow(table.length);
-//     var cell1 = newRow.insertCell(0);
-//     cell1.innerHTML = data.bNum;
-//    var  cell2 = newRow.insertCell(1);
-//     cell2.innerHTML = data.bName;
-   
-//     var cell4 = newRow.insertCell(2);
-//     cell4.innerHTML = `<a onClick="onEdit(this)">Edit</a>
-//                        <a onClick="onDelete(this)">Delete</a>`;
-// }
-
-// function resetForm() {
-//     document.getElementById("bNum").value = "";
-//     document.getElementById("bName").value = "";
-    
-//     selectedRow = null;
-// }
-
-// function onEdit(td) {
-//     selectedRow = td.parentElement.parentElement;
-//     document.getElementById("bNum").value = selectedRow.cells[0].innerHTML;
-//     document.getElementById("bName").value = selectedRow.cells[1].innerHTML;
- 
-// }
-// function updateRecord(formData) {
-//     selectedRow.cells[0].innerHTML = formData.bNum;
-//     selectedRow.cells[1].innerHTML = formData.bName;
-
-// }
-
-// function onDelete(td) {
-  
-//     if (window.confirm('Are you sure to delete this record ?')) {
-//         var row = td.parentElement.parentElement;
-//         document.getElementById("buildingList").deleteRow(row.rowIndex);
-//         resetForm();
-//     }
-// }
-// function validate() {
-//     var isValid = true;
-//     if (document.getElementById("bNum").value == "") {
-//         isValid = false;
-//         document.getElementById("bNumValidationError").classList.remove("hide");
-//     } else {
-//         isValid = true;
-//         if (!document.getElementById("bNumValidationError").classList.contains("hide"))
-//             document.getElementById("bNumValidationError").classList.add("hide");
-//     }
-//     return isValid;
-//   }
-//   return (
-//     <body className="crud_building_body">
-//     <div className="crud_building">
-      
-//       <h1 className="title">Hello!</h1>
-//       <h3 className="title1">Register a Lunamar Building</h3>
-//       <div className="container">
-//         <table>
-//           <tr>
-//             <td>
-//               <form
-//                 onsubmit={onFormSubmit()}
-//                 autocomplete="off"
-//               >
-//                 <div>
-//                   <label>Building #</label>
-//                   <label className="validation-error hide" id="bNumValidationError">
-//                     This field is required.
-//                   </label>
-//                   <input type="number" name="bNum" id="bNum" />
-//                 </div>
-//                 <div>
-//                   <label>Building Name</label>
-//                   <input type="text" name="bName" id="bName" />
-//                 </div>
-
-//                 <div className="form-action-buttons">
-//                   <input type="submit" value="Submit" />
-//                   <input type="reset" value="Reset" />
-//                 </div>
-//               </form>
-//               <td>
-//                 <table className="list" id="buildingList">
-//                   <thead>
-//                     <tr>
-//                       <th>Buildings #</th>
-//                       <th>Building Name</th>
-//                       <th>Edit/Delete</th>
-//                     </tr>
-//                     <tr>
-//                       <td>01</td>
-//                       <td>Building 01</td>
-//                       <td>
-//                         <a onClick={onEdit(this)}>Edit</a>
-//                         <a onClick={onDelete(this)}>Delete</a>
-//                       </td>
-//                     </tr>
-
-//                     <tr>
-//                       <td>02</td>
-//                       <td>Building 02</td>
-//                       <td>
-//                         <a onClick={onEdit(this)}>Edit</a>
-//                         <a onClick={onDelete(this)}>Delete</a>
-//                       </td>
-//                     </tr>
-//                     <tr>
-//                       <td>03</td>
-//                       <td>Building 03</td>
-//                       <td>
-//                         <a onClick={onEdit(this)}>Edit</a>
-//                         <a onClick={onDelete(this)}>Delete</a>
-//                       </td>
-//                     </tr>
-//                   </thead>
-//                   <tbody></tbody>
-//                 </table>
-//               </td>
-//             </td>
-//           </tr>
-//         </table>
-//       </div>
-      
-//     </div>
-//     </body>
-    
-//   );
-// }
+  );
+};
