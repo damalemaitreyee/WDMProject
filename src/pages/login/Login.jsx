@@ -12,9 +12,15 @@ export default function Login() {
 
     const LoginUser = details=>{
         if(details.email== adminUser.email &&  details.password == adminUser.password && details.role == "Manager"){
-            console.log("Logged in");
+            console.log("Manager Logged in");
             history.push("/manager_home");
             
+        }else if(details.email== adminUser.email &&  details.password == adminUser.password && details.role == "Admin"){
+          console.log("Admin Logged in");
+          history.push("/manager_home");
+        } else if(details.email== adminUser.email &&  details.password == adminUser.password && details.role == "Resident"){
+          console.log("Admin Logged in");
+          history.push("/manager_home");
         }
     }
     const [details ,setDetails] = useState({email:"", password:"", role:""})
