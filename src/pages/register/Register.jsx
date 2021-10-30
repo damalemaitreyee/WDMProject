@@ -56,7 +56,7 @@ export default function Register() {
         <input className="registerInput" name="role" type="text" placeholder="Enter your role..." onChange={e=>setDetails({...details, role: e.target.value})} value={details.role} required/>
         <button className="registerButton" onClick={submitHandler}>Register</button>
       </form>
-      <script src="https://smtpjs.com/v3/smtp.js"></script>
+     
     </div>
     )
 }
