@@ -9,7 +9,7 @@ export default function ManagerHome() {
           <p>Scroll Down To Perform Specific CRUD</p>
         </div>
       </section>
-      <section className="service">
+      <section className="managerservice">
         <h1>Please select from the options below.</h1>
         <div className="row">
           <div className="service-col">

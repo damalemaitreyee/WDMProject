@@ -157,7 +157,7 @@ export default function CrudOwner() {
           <thead>
             <tr>
               <th>Name</th>
-              <th>apartmentNumber</th>
+              <th>Apartment Number</th>
               <th>Phone Number</th>
               <th>Email</th>
               <th>Actions</th>
@@ -185,7 +185,7 @@ export default function CrudOwner() {
         </table>
       </form>
 
-      <h2>Add a Contact</h2>
+      <h2>Add an Apartment</h2>
       <form onSubmit={handleAddFormSubmit}>
         <input
           type="text"

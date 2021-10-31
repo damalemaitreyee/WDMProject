@@ -9,9 +9,16 @@ export default function AdminHome() {
           <p>Scroll Down To Perform Specific CRUD</p>
         </div>
       </section>
-      <section className="service">
+      <section className="adminservice">
         <h1>Please select from the options below.</h1>
         <div className="row">
+        <div className="service-col" id="validate">
+            <h3>
+              <a href="/admin_dashboard">
+                Dashboard
+              </a>
+            </h3>
+          </div>
           <div className="service-col">
             <h3>
               <a className="btn btn-link" href="/admin_building_crud">
@@ -40,6 +47,7 @@ export default function AdminHome() {
               </a>
             </h3>
           </div>
+          
         </div>
       </section>
     </div>

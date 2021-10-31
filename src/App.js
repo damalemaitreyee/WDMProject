@@ -36,6 +36,8 @@ import ManagerIncidentCrud from "./pages/manager/ManagerIncidentCrud";
 
 import ResidentHome from "./pages/resident/residentHome";
 import Services from "./pages/services/Services";
+import Chat from "./pages/chat/chat";
+import AdminDashboard from "./pages/admin/admin_dashboard";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -55,7 +57,6 @@ function App() {
   return (
     <Router>
       <TopBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
-      <Home/>
       <Switch>
         <Route exact path="/">
           <Home />
@@ -100,6 +101,9 @@ function App() {
         <Route exact path="/admin_home">
           <AdminHome />
         </Route>
+        <Route exact path="/admin_dashboard">
+          <AdminDashboard/>
+        </Route>
         <Route exact path="/admin_building_crud">
           <AdminBuildingCrud />
         </Route>
@@ -127,6 +131,9 @@ function App() {
         </Route>
         <Route exact path="/services">
           <Services/>
+        </Route>
+        <Route exact path="/chatwithus">
+          <Chat/>
         </Route>
         
       </Switch>

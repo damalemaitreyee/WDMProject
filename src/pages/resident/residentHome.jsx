@@ -33,6 +33,13 @@ export default function ResidentHome() {
               </a>
             </h3>
           </div>
+          <div className="service-col" id="validate">
+            <h3>
+              <a href="/chatwithus">
+                Chat With Us
+              </a>
+            </h3>
+          </div>
         </div>
       </section>
     </div>

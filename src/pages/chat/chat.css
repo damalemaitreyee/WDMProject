@@ -1,47 +1,46 @@
 /* Damale, Maitreyee Avinash - 1001878520 
    Shaikh, Sarah Fatema- 1001855185
    Begum, Fatima Zohra - 1001880881 */
-/* *{
+   /*{
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
-} */
-.managerheader{
+  }*/
+  /* .header{
     min-height: 100vh;
     width: 100%;
     background-image: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)),url(../../images/background.jpeg);
     background-position: center;
     background-size: center;
     position: relative;
-    text-align: center;
-
-}
-.ManagerHome.nav{
+  
+  }
+  nav{
     display: flex;
     padding: 2% 6%;
     justify-content: space-between;
     align-items: center;
-}
-.ManagerHome.nav img{
+  }
+  nav img{
     width: 150px;
-
-} 
-.ManagerHome.nav-links{
+  
+  } 
+  .nav-links{
     flex: 1;
     text-align: right;
-}
-.ManagerHome.nav-links ul li{
+  }
+  .nav-links ul li{
     list-style: none;
     display: inline-block;
     padding: 8px 12px;
     position: relative;
-}
-.nav-links ul li a{
+  }
+  .nav-links ul li a{
     color: white;
     text-decoration: none;
     font-size: 13px;
-}
-.ManagerHome.nav-links ul li::after{
+  }
+  .nav-links ul li::after{
     content: '';
     width: 0%;
     height: 2px;
@@ -49,11 +48,11 @@
     display: block;
     margin: auto;
     transition: 0.5s;
-}
-.ManagerHome.nav-links ul li:hover::after{
+  }
+  .nav-links ul li:hover::after{
     width: 100%;
-}
-.managerheader.text-box{
+  }
+  .text-box{
     width: 90%;
     color: white;
     position: absolute;
@@ -61,16 +60,16 @@
     left: 50%;
     transform: translate(-50%,-50%);
     text-align: center;
-}
-.managerheader.text-box h1{
+  }
+  .text-box h1{
     font-size: 62px;
-}
-.managerheader.text-box p{
+  }
+  .text-box p{
     margin: 10px 0 40px;
     font-size: 30px;
     color: white;
-}
-.managerheader.hero-btn{
+  }
+  .hero-btn{
     display: inline-block;
     text-decoration: none;
     color: #fff;
@@ -79,16 +78,16 @@
     font-size: 13px;
     background: transparent;
     cursor: pointer;
-}
-.managerheader.hero-btn:hover{
+  }
+  .hero-btn:hover{
     border: 1px solid #f44336;
     background: #f44336;
     transition: ls;
-}
-nav .fa{
+  }
+  nav .fa{
     display: none;
-}
-@media(max-width: 700px){
+  }
+  @media(max-width: 700px){
     .text-box h1{
         font-size: 20px;
     }
@@ -116,58 +115,83 @@ nav .fa{
         .nav-links ul{
             padding: 30px;
         }
-}
-
-
-/*---------Service-----*/
-.managerheader.managerservice{
-    width: 80%;
-    margin: auto;
+  }
+  body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    background-image: linear-gradient(rgba(0,0,0,0.5), #3551b5), url(../../images/pool.jpeg);
+  } */
+  .chatbox{
+    width: 450px;
+    height: 390px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* border: 1px solid #303030; */
+    box-shadow: 5px 5px 20px #000;
+    border-radius: 20px;
+  }
+  .chattop{
+    width: 100%;
+    height: 80px;
+    background: #2a2f32;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+  .chattop h1{
+    color: #fff;
+    margin: 0;
+    font-size: 30px;
     text-align: center;
-    padding-top: 100px;
-}
-.managerheader.h1{
-    font-size: 36px;
+    /* padding-left: 20px; */
+    padding-top: 10px;
+    font-family: monospace;
+  }
+  .mid{
+    width: 100%;
+    height: 260px;
+    background: #00af9c;
+    /* margin-top: -18px; */
+  }
+  .mid .chat{
+    width: 100%;
+    /* padding-top: 0px; */
+  }
+  .mid .chat h2{
+    margin: 0;
+    font-size: 30px;
+    color: #000;
+    padding: 30px 20px;
+  }
+  .chatmid .chat p{
+    margin: 0;
+    font-size: 28px;
     font-weight: 600;
-}
-.managerheader.p{
-    color: #777;
-    font-size: 14px;
-    font-weight: 300;
-    line-height: 22px;
-    padding: 10px;
-}
-
-.managerheader.row{
-    margin-top: 5%;
-    display: flex;
-    justify-content: space-between;
-}
-
-.managerheader.service-col{
-    flex-basis: 31%;
-    background: #fff3f3;
-    border-radius: 10px;
-    margin-bottom: 5%;
-    padding: 20px 12px;
-    box-sizing: border-box;
-    transition: 0.5s;
-}
-
-.managerheader .h3{
-    text-align: center;
-    font-weight: 600;
-    margin: 10px 0;
-    
-}
-.managerheader.service-col:hover{
-    box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.2);
-}
-
-@media(max-width: 700px){
-    .managerheader.row{
-        flex-direction: column;
-    }
-}
-
-
+    color: #fff;
+    background: #063b36;
+    padding: 50px 20px;
+    letter-spacing: 0.04em;
+  }
+  .chatinput{
+    width: 100%;
+    height: 79px;
+    overflow: hidden;
+    /* background: #090e11; */
+  }
+  .chatinput input{
+    width: 100%;
+    height: 70px;
+    font-size: 30px;
+    outline: none;
+    border: none;
+    padding-left: 30px;
+    padding-top: 0;
+    font-family: cursive;
+    background: #090e11;
+    color: #fff;
+  }
