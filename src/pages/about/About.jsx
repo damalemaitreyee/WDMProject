@@ -17,9 +17,9 @@ export default function About() {
                 who will provide you the best services. Lunamar provides variety
                 of services which makes life easier
               </p>
-              <Link to="/contactus" className="hero-btn">
-                Contact Us To Learn More
-              </Link>
+              <a target="_blank" href="https://fxb0881.uta.cloud/" className="hero-btn">
+                Learn More
+              </a>
             </div>
           </div>
         </div>

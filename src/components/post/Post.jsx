@@ -12,13 +12,11 @@ export default function Post({img}) {
       <div className="postInfo">
         <div className="postCats">
           <span className="postCat">
-            <Link className="link" href="https://mxd8520.uta.cloud/blogs/">
-              Forum
-            </Link>
+          <a target="_blank" href="https://fxb0881.uta.cloud/">Forum</a>
           </span>
         </div>
         <span className="postTitle">
-          <Link href="https://mxd8520.uta.cloud/blogs/" className="link">
+          <Link href="https://fxb0881.uta.cloud/" className="link">
             Resident Review
           </Link>
         </span>

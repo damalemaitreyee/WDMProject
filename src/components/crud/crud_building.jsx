@@ -8,38 +8,30 @@ import EditableRow from "./EditableRowBuilding";
 const data = [
   {
     "id": 1,
-    "fullName": "Jenny Chan",
-    "address": "3 waterfoot road",
-    "phoneNumber": "333-962-7516",
-    "email": "jenny.chan@email.com"
+    "buildingName": "Jenny Chan",
+    "address": "3 waterfoot road"
   },
   {
     "id": 2,
-    "fullName": "Jessica warren",
-    "address": "4 tall town",
-    "phoneNumber": "011-211-7516",
-    "email": "jessica.warren@email.com"
+    "buildingName": "Jessica warren",
+    "address": "4 tall town"
+    
   },
   {
     "id": 3,
-    "fullName": "Tony Frank",
-    "address": "11 lesly road",
-    "phoneNumber": "788-962-7516",
-    "email": "tony.frank@email.com"
+    "buildingName": "Tony Frank",
+    "address": "11 lesly road"
+    
   },
   {
     "id": 4,
-    "fullName": "Jeremy Clark",
-    "address": "333 miltown manor",
-    "phoneNumber": "011-962-111",
-    "email": "jeremy.clark@email.com"
+    "buildingName": "Jeremy Clark",
+    "address": "333 miltown manor"
   },
   {
     "id": 5,
-    "fullName": "Raymond Edwards",
-    "address": "99 blue acres",
-    "phoneNumber": "3231-962-7516",
-    "email": "raymon.edwards@email.com"
+    "buildingName": "Raymond Edwards",
+    "address": "99 blue acres"
   }
 ]
 
@@ -47,17 +39,14 @@ const data = [
 export default function CrudBuilding() {
   const [contacts, setContacts] = useState(data);
   const [addFormData, setAddFormData] = useState({
-    fullName: "",
-    address: "",
-    phoneNumber: "",
-    email: "",
+    buildingName: "",
+    address: ""
+    
   });
 
   const [editFormData, setEditFormData] = useState({
-    fullName: "",
-    address: "",
-    phoneNumber: "",
-    email: "",
+    buildingName: "",
+    address: ""
   });
 
   const [editContactId, setEditContactId] = useState(null);
@@ -91,10 +80,9 @@ export default function CrudBuilding() {
 
     const newContact = {
       id: nanoid(),
-      fullName: addFormData.fullName,
+      buildingName: addFormData.buildingName,
       address: addFormData.address,
-      phoneNumber: addFormData.phoneNumber,
-      email: addFormData.email,
+      
     };
 
     const newContacts = [...contacts, newContact];
@@ -106,10 +94,8 @@ export default function CrudBuilding() {
 
     const editedContact = {
       id: editContactId,
-      fullName: editFormData.fullName,
-      address: editFormData.address,
-      phoneNumber: editFormData.phoneNumber,
-      email: editFormData.email,
+      buildingName: editFormData.buildingName,
+      address: editFormData.address
     };
 
     const newContacts = [...contacts];
@@ -127,10 +113,8 @@ export default function CrudBuilding() {
     setEditContactId(contact.id);
 
     const formValues = {
-      fullName: contact.fullName,
-      address: contact.address,
-      phoneNumber: contact.phoneNumber,
-      email: contact.email,
+      buildingName: contact.buildingName,
+      address: contact.address
     };
 
     setEditFormData(formValues);
@@ -152,14 +136,12 @@ export default function CrudBuilding() {
 
   return (
     <div className="app-container">
-      <form onSubmit={handleEditFormSubmit}>
+      <form onSubmit={handleEditFormSubmit} className="crud">
         <table>
           <thead>
             <tr>
               <th>Name</th>
               <th>Address</th>
-              <th>Phone Number</th>
-              <th>Email</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -185,11 +167,11 @@ export default function CrudBuilding() {
         </table>
       </form>
 
-      <h2>Add a Contact</h2>
-      <form onSubmit={handleAddFormSubmit}>
+      <h2>Add a Building</h2>
+      <form onSubmit={handleAddFormSubmit} className="crud">
         <input
           type="text"
-          name="fullName"
+          name="buildingName"
           required="required"
           placeholder="Enter a name..."
           onChange={handleAddFormChange}
@@ -201,20 +183,7 @@ export default function CrudBuilding() {
           placeholder="Enter an addres..."
           onChange={handleAddFormChange}
         />
-        <input
-          type="text"
-          name="phoneNumber"
-          required="required"
-          placeholder="Enter a phone number..."
-          onChange={handleAddFormChange}
-        />
-        <input
-          type="email"
-          name="email"
-          required="required"
-          placeholder="Enter an email..."
-          onChange={handleAddFormChange}
-        />
+        
         <button type="submit">Add</button>
       </form>
     </div>

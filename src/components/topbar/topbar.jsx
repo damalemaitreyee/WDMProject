@@ -1,9 +1,18 @@
 import React from "react";
 import "./topbar.css";
-import logo from '../../images/logo.png'
+import logo from "../../images/logo.png";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 
-export default function TopBar() {
+export default function TopBar(props) {
+  const { isLoggedIn, handleLogout } = props;
+  const history = useHistory();
+
+  const logout = () => {
+    history.push("/");
+    handleLogout();
+  };
+
   return (
     <div className="top">
       <div className="topLeft">
@@ -12,20 +21,37 @@ export default function TopBar() {
       <div className="topCenter">
         <ul className="topList">
           <Link to="/">
-          <li className="topListItem">HOME</li>
+            <li className="topListItem">HOME</li>
           </Link>
           <Link to="/about">
-          <li className="topListItem">ABOUT</li>
+            <li className="topListItem">ABOUT</li>
           </Link>
-          <li className="topListItem">SERVICES</li>
+
           <Link to="/contactus">
-          <li className="topListItem">CONTACT US</li>
+            <li className="topListItem">CONTACT US</li>
           </Link>
-          <Link to="/login">
-          <li className="topListItem">LOGIN</li>
-          </Link>
-          <Link to="/register">
-          <li className="topListItem">REGISTER</li>
+          {!isLoggedIn ? (
+            <>
+              <Link to="/login">
+                <li className="topListItem">LOGIN</li>
+              </Link>
+              <Link to="/register">
+                <li className="topListItem">REGISTER</li>
+              </Link>
+              <Link to="/services">
+                <li className="topListItem">SERVICES</li>
+              </Link>
+            </>
+          ) : (
+            <li className="topListItem" onClick={logout}>
+              LOGOUT
+            </li>
+          )}
+          <Link
+            to={{ pathname: "http://fxb0881.uta.cloud/blog" }}
+            target="_blank"
+          >
+            <li className="topListItem">BLOG</li>
           </Link>
         </ul>
       </div>

@@ -1,18 +1,17 @@
 import { Link } from "react-router-dom";
 import "./sidebar.css";
-import background from '../../images/pool.jpeg'
+import background from "../../images/pool.jpeg";
 
 export default function Sidebar() {
   return (
     <div className="sidebar">
       <div className="sidebarItem">
         <span className="sidebarTitle">ABOUT LUNAMAR</span>
-        <img
-          src={background}
-          alt=""
-        />
+        <img src={background} alt="" />
         <p>
-        Lunamar is a huge subdivision which has a lot of buildings.
+          Lunamar is a huge subdivision which has 50+ buildings. In 2021, it
+          completed it's 10th anniversary. This online portal is it's pilot
+          version.
         </p>
       </div>
       <div className="sidebarItem">
@@ -46,6 +45,15 @@ export default function Sidebar() {
           <li className="sidebarListItem">
             <Link className="link" to="">
               Garden
+            </Link>
+          </li>
+          <li className="sidebarListItem">
+            <Link
+              to={{ pathname: "http://fxb0881.uta.cloud/blog" }}
+              target="_blank"
+              className="link"
+            >
+              Blogs
             </Link>
           </li>
         </ul>

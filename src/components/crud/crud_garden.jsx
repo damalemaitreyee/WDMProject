@@ -8,38 +8,32 @@ import EditableRow from "./EditableRow";
 const data = [
   {
     "id": 1,
-    "fullName": "Jenny Chan",
-    "address": "3 waterfoot road",
-    "phoneNumber": "333-962-7516",
-    "email": "jenny.chan@email.com"
+    "gardenName": "Jenny Chan",
+    "buildingNumber": "3 waterfoot road"
   },
   {
     "id": 2,
-    "fullName": "Jessica warren",
-    "address": "4 tall town",
-    "phoneNumber": "011-211-7516",
-    "email": "jessica.warren@email.com"
+    "gardenName": "Jessica warren",
+    "buildingNumber": "4 tall town",
+   
   },
   {
     "id": 3,
-    "fullName": "Tony Frank",
-    "address": "11 lesly road",
-    "phoneNumber": "788-962-7516",
-    "email": "tony.frank@email.com"
+    "gardenName": "Tony Frank",
+    "buildingNumber": "11 lesly road",
+    
   },
   {
     "id": 4,
-    "fullName": "Jeremy Clark",
-    "address": "333 miltown manor",
-    "phoneNumber": "011-962-111",
-    "email": "jeremy.clark@email.com"
+    "gardenName": "Jeremy Clark",
+    "buildingNumber": "333 miltown manor",
+    
   },
   {
     "id": 5,
-    "fullName": "Raymond Edwards",
-    "address": "99 blue acres",
-    "phoneNumber": "3231-962-7516",
-    "email": "raymon.edwards@email.com"
+    "gardenName": "Raymond Edwards",
+    "buildingNumber": "99 blue acres",
+    
   }
 ]
 
@@ -47,17 +41,15 @@ const data = [
 export default function CrudGarden() {
   const [contacts, setContacts] = useState(data);
   const [addFormData, setAddFormData] = useState({
-    fullName: "",
-    address: "",
-    phoneNumber: "",
-    email: "",
+    gardenName: "",
+    buildingNumber: "",
+   
   });
 
   const [editFormData, setEditFormData] = useState({
-    fullName: "",
-    address: "",
-    phoneNumber: "",
-    email: "",
+    gardenName: "",
+    buildingNumber: "",
+   
   });
 
   const [editContactId, setEditContactId] = useState(null);
@@ -91,10 +83,9 @@ export default function CrudGarden() {
 
     const newContact = {
       id: nanoid(),
-      fullName: addFormData.fullName,
-      address: addFormData.address,
-      phoneNumber: addFormData.phoneNumber,
-      email: addFormData.email,
+      gardenName: addFormData.gardenName,
+      buildingNumber: addFormData.buildingNumber,
+      
     };
 
     const newContacts = [...contacts, newContact];
@@ -106,10 +97,9 @@ export default function CrudGarden() {
 
     const editedContact = {
       id: editContactId,
-      fullName: editFormData.fullName,
-      address: editFormData.address,
-      phoneNumber: editFormData.phoneNumber,
-      email: editFormData.email,
+      gardenName: editFormData.gardenName,
+      buildingNumber: editFormData.buildingNumber,
+      
     };
 
     const newContacts = [...contacts];
@@ -127,10 +117,9 @@ export default function CrudGarden() {
     setEditContactId(contact.id);
 
     const formValues = {
-      fullName: contact.fullName,
-      address: contact.address,
-      phoneNumber: contact.phoneNumber,
-      email: contact.email,
+      gardenName: contact.gardenName,
+      buildingNumber: contact.buildingNumber,
+     
     };
 
     setEditFormData(formValues);
@@ -157,9 +146,7 @@ export default function CrudGarden() {
           <thead>
             <tr>
               <th>Name</th>
-              <th>Address</th>
-              <th>Phone Number</th>
-              <th>Email</th>
+              <th>Building Number</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -185,38 +172,35 @@ export default function CrudGarden() {
         </table>
       </form>
 
-      <h2>Add a Contact</h2>
+      <h2>Add a Garden</h2>
       <form onSubmit={handleAddFormSubmit}>
         <input
           type="text"
-          name="fullName"
+          name="gardenName"
           required="required"
           placeholder="Enter a name..."
           onChange={handleAddFormChange}
         />
         <input
           type="text"
-          name="address"
+          name="buildingNumber"
           required="required"
           placeholder="Enter an addres..."
           onChange={handleAddFormChange}
         />
-        <input
-          type="text"
-          name="phoneNumber"
-          required="required"
-          placeholder="Enter a phone number..."
-          onChange={handleAddFormChange}
-        />
-        <input
-          type="email"
-          name="email"
-          required="required"
-          placeholder="Enter an email..."
-          onChange={handleAddFormChange}
-        />
+        
         <button type="submit">Add</button>
       </form>
+      <div className="links">{
+        <>
+        <a href="/manager_plant">Manage Plants</a><br/>
+        <a href="/manager_pool">Manage Pool</a><br/>
+        <a href="/manager_incident">Manage Incident</a>
+        </>
+        
+      }
+
+      </div>
     </div>
   );
 };

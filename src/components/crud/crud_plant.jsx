@@ -8,38 +8,38 @@ import EditableRow from "./EditableRowPlant";
 const data = [
   {
     "id": 1,
-    "fullName": "Jenny Chan",
-    "address": "3 waterfoot road",
-    "phoneNumber": "333-962-7516",
-    "email": "jenny.chan@email.com"
+    "plantName": "Jenny Chan",
+    "buildingName": "3 waterfoot road",
+    "gardenNumber": "333-962-7516",
+    
   },
   {
     "id": 2,
-    "fullName": "Jessica warren",
-    "address": "4 tall town",
-    "phoneNumber": "011-211-7516",
-    "email": "jessica.warren@email.com"
+    "plantName": "Jessica warren",
+    "buildingName": "4 tall town",
+    "gardenNumber": "011-211-7516",
+    
   },
   {
     "id": 3,
-    "fullName": "Tony Frank",
-    "address": "11 lesly road",
-    "phoneNumber": "788-962-7516",
-    "email": "tony.frank@email.com"
+    "plantName": "Tony Frank",
+    "buildingName": "11 lesly road",
+    "gardenNumber": "788-962-7516",
+    
   },
   {
     "id": 4,
-    "fullName": "Jeremy Clark",
-    "address": "333 miltown manor",
-    "phoneNumber": "011-962-111",
-    "email": "jeremy.clark@email.com"
+    "plantName": "Jeremy Clark",
+    "buildingName": "333 miltown manor",
+    "gardenNumber": "011-962-111",
+    
   },
   {
     "id": 5,
-    "fullName": "Raymond Edwards",
-    "address": "99 blue acres",
-    "phoneNumber": "3231-962-7516",
-    "email": "raymon.edwards@email.com"
+    "plantName": "Raymond Edwards",
+    "buildingName": "99 blue acres",
+    "gardenNumber": "3231-962-7516",
+    
   }
 ]
 
@@ -47,17 +47,17 @@ const data = [
 export default function CrudPlant() {
   const [contacts, setContacts] = useState(data);
   const [addFormData, setAddFormData] = useState({
-    fullName: "",
-    address: "",
-    phoneNumber: "",
-    email: "",
+    plantName: "",
+    buildingName: "",
+    gardenNumber: "",
+   
   });
 
   const [editFormData, setEditFormData] = useState({
-    fullName: "",
-    address: "",
-    phoneNumber: "",
-    email: "",
+    plantName: "",
+    buildingName: "",
+    gardenNumber: "",
+    
   });
 
   const [editContactId, setEditContactId] = useState(null);
@@ -91,10 +91,10 @@ export default function CrudPlant() {
 
     const newContact = {
       id: nanoid(),
-      fullName: addFormData.fullName,
-      address: addFormData.address,
-      phoneNumber: addFormData.phoneNumber,
-      email: addFormData.email,
+      plantName: addFormData.plantName,
+      buildingName: addFormData.buildingName,
+      gardenNumber: addFormData.gardenNumber,
+      
     };
 
     const newContacts = [...contacts, newContact];
@@ -106,10 +106,10 @@ export default function CrudPlant() {
 
     const editedContact = {
       id: editContactId,
-      fullName: editFormData.fullName,
-      address: editFormData.address,
-      phoneNumber: editFormData.phoneNumber,
-      email: editFormData.email,
+      plantName: editFormData.plantName,
+      buildingName: editFormData.buildingName,
+      gardenNumber: editFormData.gardenNumber,
+      
     };
 
     const newContacts = [...contacts];
@@ -127,10 +127,10 @@ export default function CrudPlant() {
     setEditContactId(contact.id);
 
     const formValues = {
-      fullName: contact.fullName,
-      address: contact.address,
-      phoneNumber: contact.phoneNumber,
-      email: contact.email,
+      plantName: contact.plantName,
+      buildingName: contact.buildingName,
+      gardenNumber: contact.gardenNumber,
+     
     };
 
     setEditFormData(formValues);
@@ -156,10 +156,9 @@ export default function CrudPlant() {
         <table>
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Address</th>
-              <th>Phone Number</th>
-              <th>Email</th>
+              <th>Plant Name</th>
+              <th>Building Name</th>
+              <th>Garden Number</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -185,38 +184,37 @@ export default function CrudPlant() {
         </table>
       </form>
 
-      <h2>Add a Contact</h2>
+      <h2>Add a Plant</h2>
       <form onSubmit={handleAddFormSubmit}>
         <input
           type="text"
-          name="fullName"
+          name="plantName"
           required="required"
-          placeholder="Enter a name..."
+          placeholder="Enter a plant..."
           onChange={handleAddFormChange}
         />
         <input
           type="text"
-          name="address"
+          name="buildingName"
           required="required"
-          placeholder="Enter an addres..."
+          placeholder="Enter an building name..."
           onChange={handleAddFormChange}
         />
         <input
           type="text"
-          name="phoneNumber"
+          name="gardenNumber"
           required="required"
-          placeholder="Enter a phone number..."
+          placeholder="Enter a Garden number..."
           onChange={handleAddFormChange}
         />
-        <input
-          type="email"
-          name="email"
-          required="required"
-          placeholder="Enter an email..."
-          onChange={handleAddFormChange}
-        />
+        
         <button type="submit">Add</button>
       </form>
+      <div>
+      <a href="/manager_incident">Manage Incident</a><br/>
+        <a href="/manager_pool">Manage Pool</a><br/>
+        <a href="/manager_garden">Manage Garden</a>
+      </div>
     </div>
   );
 };

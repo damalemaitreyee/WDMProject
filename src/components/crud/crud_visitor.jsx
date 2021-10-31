@@ -3,41 +3,41 @@ import "./crud_building.css";
 import React, { useState, Fragment } from "react";
 import { nanoid } from "nanoid";
 //import data from "./mock-data.json";
-import ReadOnlyRow from "./ReadOnlyRow";
-import EditableRow from "./EditableRow";
+import ReadOnlyRow from "./ReadOnlyRowVisitor";
+import EditableRow from "./EditableRowVisitor";
 const data = [
   {
     "id": 1,
     "fullName": "Jenny Chan",
-    "address": "3 waterfoot road",
+    "apartmentNumber": "3 waterfoot road",
     "phoneNumber": "333-962-7516",
     "email": "jenny.chan@email.com"
   },
   {
     "id": 2,
     "fullName": "Jessica warren",
-    "address": "4 tall town",
+    "apartmentNumber": "4 tall town",
     "phoneNumber": "011-211-7516",
     "email": "jessica.warren@email.com"
   },
   {
     "id": 3,
     "fullName": "Tony Frank",
-    "address": "11 lesly road",
+    "apartmentNumber": "11 lesly road",
     "phoneNumber": "788-962-7516",
     "email": "tony.frank@email.com"
   },
   {
     "id": 4,
     "fullName": "Jeremy Clark",
-    "address": "333 miltown manor",
+    "apartmentNumber": "333 miltown manor",
     "phoneNumber": "011-962-111",
     "email": "jeremy.clark@email.com"
   },
   {
     "id": 5,
     "fullName": "Raymond Edwards",
-    "address": "99 blue acres",
+    "apartmentNumber": "99 blue acres",
     "phoneNumber": "3231-962-7516",
     "email": "raymon.edwards@email.com"
   }
@@ -48,14 +48,14 @@ export default function CrudVisitor() {
   const [contacts, setContacts] = useState(data);
   const [addFormData, setAddFormData] = useState({
     fullName: "",
-    address: "",
+    apartmentNumber: "",
     phoneNumber: "",
     email: "",
   });
 
   const [editFormData, setEditFormData] = useState({
     fullName: "",
-    address: "",
+    apartmentNumber: "",
     phoneNumber: "",
     email: "",
   });
@@ -92,7 +92,7 @@ export default function CrudVisitor() {
     const newContact = {
       id: nanoid(),
       fullName: addFormData.fullName,
-      address: addFormData.address,
+      apartmentNumber: addFormData.apartmentNumber,
       phoneNumber: addFormData.phoneNumber,
       email: addFormData.email,
     };
@@ -107,7 +107,7 @@ export default function CrudVisitor() {
     const editedContact = {
       id: editContactId,
       fullName: editFormData.fullName,
-      address: editFormData.address,
+      apartmentNumber: editFormData.apartmentNumber,
       phoneNumber: editFormData.phoneNumber,
       email: editFormData.email,
     };
@@ -128,7 +128,7 @@ export default function CrudVisitor() {
 
     const formValues = {
       fullName: contact.fullName,
-      address: contact.address,
+      apartmentNumber: contact.apartmentNumber,
       phoneNumber: contact.phoneNumber,
       email: contact.email,
     };
@@ -157,7 +157,7 @@ export default function CrudVisitor() {
           <thead>
             <tr>
               <th>Name</th>
-              <th>Address</th>
+              <th>apartmentNumber</th>
               <th>Phone Number</th>
               <th>Email</th>
               <th>Actions</th>
@@ -196,7 +196,7 @@ export default function CrudVisitor() {
         />
         <input
           type="text"
-          name="address"
+          name="apartmentNumber"
           required="required"
           placeholder="Enter an addres..."
           onChange={handleAddFormChange}

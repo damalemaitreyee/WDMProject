@@ -8,38 +8,33 @@ import EditableRow from "./EditableRowPool";
 const data = [
   {
     "id": 1,
-    "fullName": "Jenny Chan",
-    "address": "3 waterfoot road",
-    "phoneNumber": "333-962-7516",
-    "email": "jenny.chan@email.com"
+    "poolName": "Jenny Chan",
+    "buildingName": "3 waterfoot road",
+    
   },
   {
     "id": 2,
-    "fullName": "Jessica warren",
-    "address": "4 tall town",
-    "phoneNumber": "011-211-7516",
-    "email": "jessica.warren@email.com"
+    "poolName": "Jessica warren",
+    "buildingName": "4 tall town",
+    
   },
   {
     "id": 3,
-    "fullName": "Tony Frank",
-    "address": "11 lesly road",
-    "phoneNumber": "788-962-7516",
-    "email": "tony.frank@email.com"
+    "poolName": "Tony Frank",
+    "buildingName": "11 lesly road",
+    
   },
   {
     "id": 4,
-    "fullName": "Jeremy Clark",
-    "address": "333 miltown manor",
-    "phoneNumber": "011-962-111",
-    "email": "jeremy.clark@email.com"
+    "poolName": "Jeremy Clark",
+    "buildingName": "333 miltown manor",
+    
   },
   {
     "id": 5,
-    "fullName": "Raymond Edwards",
-    "address": "99 blue acres",
-    "phoneNumber": "3231-962-7516",
-    "email": "raymon.edwards@email.com"
+    "poolName": "Raymond Edwards",
+    "buildingName": "99 blue acres",
+    
   }
 ]
 
@@ -47,17 +42,15 @@ const data = [
 export default function CrudPool() {
   const [contacts, setContacts] = useState(data);
   const [addFormData, setAddFormData] = useState({
-    fullName: "",
-    address: "",
-    phoneNumber: "",
-    email: "",
+    poolName: "",
+    buildingName: "",
+    
   });
 
   const [editFormData, setEditFormData] = useState({
-    fullName: "",
-    address: "",
-    phoneNumber: "",
-    email: "",
+    poolName: "",
+    buildingName: "",
+    
   });
 
   const [editContactId, setEditContactId] = useState(null);
@@ -91,10 +84,9 @@ export default function CrudPool() {
 
     const newContact = {
       id: nanoid(),
-      fullName: addFormData.fullName,
-      address: addFormData.address,
-      phoneNumber: addFormData.phoneNumber,
-      email: addFormData.email,
+      poolName: addFormData.poolName,
+      buildingName: addFormData.buildingName,
+     
     };
 
     const newContacts = [...contacts, newContact];
@@ -106,10 +98,9 @@ export default function CrudPool() {
 
     const editedContact = {
       id: editContactId,
-      fullName: editFormData.fullName,
-      address: editFormData.address,
-      phoneNumber: editFormData.phoneNumber,
-      email: editFormData.email,
+      poolName: editFormData.poolName,
+      buildingName: editFormData.buildingName,
+     
     };
 
     const newContacts = [...contacts];
@@ -127,10 +118,9 @@ export default function CrudPool() {
     setEditContactId(contact.id);
 
     const formValues = {
-      fullName: contact.fullName,
-      address: contact.address,
-      phoneNumber: contact.phoneNumber,
-      email: contact.email,
+      poolName: contact.poolName,
+      buildingName: contact.buildingName,
+      
     };
 
     setEditFormData(formValues);
@@ -157,9 +147,8 @@ export default function CrudPool() {
           <thead>
             <tr>
               <th>Name</th>
-              <th>Address</th>
-              <th>Phone Number</th>
-              <th>Email</th>
+              <th>buildingName</th>
+              
               <th>Actions</th>
             </tr>
           </thead>
@@ -185,38 +174,30 @@ export default function CrudPool() {
         </table>
       </form>
 
-      <h2>Add a Contact</h2>
+      <h2>Add a Pool</h2>
       <form onSubmit={handleAddFormSubmit}>
         <input
           type="text"
-          name="fullName"
+          name="poolName"
           required="required"
           placeholder="Enter a name..."
           onChange={handleAddFormChange}
         />
         <input
           type="text"
-          name="address"
+          name="buildingName"
           required="required"
-          placeholder="Enter an addres..."
+          placeholder="Enter building..."
           onChange={handleAddFormChange}
         />
-        <input
-          type="text"
-          name="phoneNumber"
-          required="required"
-          placeholder="Enter a phone number..."
-          onChange={handleAddFormChange}
-        />
-        <input
-          type="email"
-          name="email"
-          required="required"
-          placeholder="Enter an email..."
-          onChange={handleAddFormChange}
-        />
+        
         <button type="submit">Add</button>
       </form>
+      <div>
+      <a href="/manager_plant">Manage Plants</a><br/>
+        <a href="/manager_incident">Manage Incident</a><br/>
+        <a href="/manager_garden">Manage Garden</a>
+      </div>
     </div>
   );
 };

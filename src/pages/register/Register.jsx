@@ -1,5 +1,6 @@
 import React, {useState}  from "react";
 import  { useRef } from 'react';
+import validator from 'validator'
 import "./register.css"
 import { useHistory } from "react-router-dom";
 //import { SMTPClient } from 'emailjs';
@@ -11,11 +12,14 @@ export default function Register() {
   const [details ,setDetails] = useState({username:"",email:"", password:"",repassword:"", role:""})
   const history = useHistory();
   const Registeration = details=>{
+    
     if(details.password!=""&&details.username!=""&&details.email!=""&&details.role!=""&&details.repassword!=""){
       if(details.password!=details.repassword){
       alert("password doesn't match");
+      }else if (!validator.isEmail(details.email)) {
+        alert('Invalid Email');
       } else{
-        history.push("/manager_home");
+        history.push("/");
       emailjs.sendForm('service_nz0158o', 'template_kvml0g5', form.current, 'user_FToWdb01vYWbtBVQSss1A')
       .then((result) => {
           console.log(result.text);
